@@ -1,38 +1,65 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
+// The Script should not be attached to a game object.
+// For some reason it causes an error "NullReferenceException"
 public class Animal : MonoBehaviour
 {
     // ENCAPSULATION
-    protected GameObject animal;
     protected Rigidbody rb;
-    protected float forceForward;
+    protected GameObject animal;
+    protected float speed;
     protected float force;
     protected float repeatInSeconds;
     protected Vector3 originalPosition;
 
-    private void Awake() // make sure that these values are set before we start the game
+    private void Awake()
     {
-        repeatInSeconds = 3;
-        forceForward = 50;
+        repeatInSeconds = 1;
+        speed = 3;
         force = 100;
     }
 
-    private void Update()
+    protected virtual void FixedUpdate()
     {
-        
+        Debug.Log("Speed= " + speed);
+        rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y, speed);
     }
 
-    protected virtual IEnumerator walk()
+    // ABSTRACTION
+    protected virtual IEnumerator Jump(bool isForever)
     {
-        //Debug.Log("Passed");
+        while (isForever)
+        {
+            rb.AddForce(Vector3.up * force, ForceMode.Impulse);
+            yield return new WaitForSeconds(repeatInSeconds);
+        }
+    }
 
-        // ABSTRACTION
-        rb.AddForce(Vector3.forward * forceForward, ForceMode.Impulse);
+    // ABSTRACTION
+    // POLYMORPHISM
+    protected virtual IEnumerator Jump()
+    {
+
+        rb.AddForce(Vector3.up * force, ForceMode.Impulse);
         yield return new WaitForSeconds(repeatInSeconds);
+
     }
 
+    // ABSTRACTION
+    protected virtual IEnumerator Sidewinding(short direction)
+    {
+        while (true)
+        {
+            rb.AddForce(Vector3.right * force * direction, ForceMode.Impulse);
+            direction *= -1;
+            yield return new WaitForSeconds(repeatInSeconds);
+        }
+    }
+
+    // When we touched the sensor, we will reset the animal position
     protected void OnTriggerEnter(Collider other)
     {
         //animal.transform.position = originalPosition; // works

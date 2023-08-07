@@ -2,33 +2,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Cat : Animal
+public class Cat : Animal   // INHERITANCE
 {
     // Start is called before the first frame update
     void Start()
     {
-        animal = gameObject;
         originalPosition = transform.position;
         rb = GetComponent<Rigidbody>();
-        StartCoroutine(walk());
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
+        // movement speed
+        speed *= 1.5f;
         
+        //animal = gameObject;
     }
 
-    // POLYMORPHISM
-    protected override IEnumerator walk()
+    // INHERITANCE
+    // No Override, therefore, it is commented
+    protected override void FixedUpdate()
     {
-        while (true)
-        {
-            //Debug.Log($"Cat: forwardForce={forceForward}, force={force}");
-
-            // INHERITANCE
-            StartCoroutine(base.walk());
-            yield return new WaitForSeconds(repeatInSeconds);
-        }
+        base.FixedUpdate();
     }
 }
