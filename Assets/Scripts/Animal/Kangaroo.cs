@@ -19,6 +19,7 @@ public class Kangaroo : Animal
         
     }
 
+    // POLYMORPHISM
     protected override IEnumerator walk()
     {
         while (true)
@@ -26,6 +27,8 @@ public class Kangaroo : Animal
             //Debug.Log($"Kangaroo: speed={forceForward}, jumpForce={force}");
 
             rb.AddForce(Vector3.up * force, ForceMode.Impulse);
+
+            // INHERITANCE
             StartCoroutine(base.walk());
             yield return new WaitForSeconds(repeatInSeconds);
         }

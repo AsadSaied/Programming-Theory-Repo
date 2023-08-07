@@ -4,7 +4,10 @@ using UnityEngine;
 
 public class Snake : Animal
 {
+    // ENCAPSULATION
     private short direction = 1;
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -22,6 +25,7 @@ public class Snake : Animal
         
     }
 
+    // POLYMORPHISM
     protected override IEnumerator walk()
     {
         while (true)
@@ -30,6 +34,8 @@ public class Snake : Animal
 
             rb.AddForce(Vector3.right * force * direction, ForceMode.Impulse);
             direction *= -1;
+
+            // INHERITANCE
             StartCoroutine(base.walk());
             yield return new WaitForSeconds(repeatInSeconds);
         }

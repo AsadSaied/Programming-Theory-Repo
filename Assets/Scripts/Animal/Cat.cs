@@ -9,7 +9,6 @@ public class Cat : Animal
     {
         animal = gameObject;
         originalPosition = transform.position;
-        forceForward /= 3;
         rb = GetComponent<Rigidbody>();
         StartCoroutine(walk());
     }
@@ -20,12 +19,14 @@ public class Cat : Animal
         
     }
 
+    // POLYMORPHISM
     protected override IEnumerator walk()
     {
         while (true)
         {
             //Debug.Log($"Cat: forwardForce={forceForward}, force={force}");
 
+            // INHERITANCE
             StartCoroutine(base.walk());
             yield return new WaitForSeconds(repeatInSeconds);
         }

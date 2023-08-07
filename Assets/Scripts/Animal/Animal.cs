@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Animal : MonoBehaviour
 {
+    // ENCAPSULATION
     protected GameObject animal;
     protected Rigidbody rb;
     protected float forceForward;
@@ -26,7 +27,8 @@ public class Animal : MonoBehaviour
     protected virtual IEnumerator walk()
     {
         //Debug.Log("Passed");
-        
+
+        // ABSTRACTION
         rb.AddForce(Vector3.forward * forceForward, ForceMode.Impulse);
         yield return new WaitForSeconds(repeatInSeconds);
     }
