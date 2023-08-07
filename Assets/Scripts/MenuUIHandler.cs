@@ -8,6 +8,6 @@ public class MenuUIHandler : MonoBehaviour
     public void PlayGame()
     {
         Debug.Log("Loading Scene");
-        //SceneManager.LoadScene(1);
+        SceneManager.LoadScene(1);
     }
 }
